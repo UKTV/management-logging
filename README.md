@@ -7,19 +7,22 @@ Django app that will allow you to track the output's from management commands.
 Installation
 ============
 
-* Add ``management_logging`` to ``INSTALLED_APPS`` in ``settings.py``:
+* Add ``management_logging`` to ``INSTALLED_APPS`` in ``settings.py``
 
+```python
     INSTALLED_APPS = (
         # other apps
         'management_logging',
     )
+```
 
+* Include ``management_logging.urls`` in your ``urls.py``
 
-* Include ``management_logging.urls`` in your ``urls.py``:
-
+```python
     urlpatterns += patterns('',
         url(r'^management-logging/', include('management_logging.urls')),
     )
+```
 
 Run migrations to create database tables::
 
