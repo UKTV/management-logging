@@ -9,8 +9,6 @@ Installation
 
 * Add ``management_logging`` to ``INSTALLED_APPS`` in ``settings.py``:
 
-.. code-block:: python
-
     INSTALLED_APPS = (
         # other apps
         'management_logging',
@@ -18,8 +16,6 @@ Installation
 
 
 * Include ``management_logging.urls`` in your ``urls.py``:
-
-.. code-block:: python
 
     urlpatterns += patterns('',
         url(r'^management-logging/', include('management_logging.urls')),
@@ -36,8 +32,6 @@ Usage
 Adding logging to management commands
 -------------------------------------
 
-.. code-block:: python
-
     from management_logging.command import CommandwithLogging
 
     class MyCommand(CommandwithLogging):
@@ -45,8 +39,6 @@ Adding logging to management commands
 
 Logging when using ``django-rq`` rqscheduler
 --------------------------------------------
-
-.. code-block:: python
 
     pip install django-rq
     pip install git+git://github.com/UKTV/django-rq-scheduler@v1.1.2#egg=django-rq-scheduler-1.1.2
