@@ -1,0 +1,25 @@
+.grp-readonly {
+    position: relative;
+    display: inline-block;
+    margin: 0;
+    padding: 4px 5px 3px !important;
+    min-width: 106px;
+    max-width: 746px;
+    min-height: 16px;
+    font-size: 12px;
+    line-height: 16px;
+    font-weight: bold;
+    color: #555555;
+    border: 1px dotted #ccc;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+}
+
+.stderr_output .management-output {
+    background-color: lightgoldenrodyellow;
+    width: auto!important;
+    max-width: none;
+    border-left: 2px solid darkorange;
+    font-weight: normal;
+}

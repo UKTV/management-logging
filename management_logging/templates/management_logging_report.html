@@ -1,0 +1,32 @@
+{% extends 'admin/base_site.html' %}
+
+{% block content %}
+    <h1>Daily Jobs Report </h1>
+
+    <table>
+        <thead>
+            <th>Name</th>
+            <th>Status</th>
+            <th>Start time</th>
+            <th>Finish time</th>
+            <th>View all</th>
+        </thead>
+
+        {% for d in data %}
+                <tr>
+                    <td>{{ d.name }}</td>
+                    <td>
+                    {% if d.status == 'Error' %}
+                        <img src="/static/admin/img/icon_error.gif" alt="True">
+                    {% elif d.status == 'Finished' %}
+                        <img src="/static/admin/img/icon_success.gif" alt="True">
+                    {% endif %}
+                    </td>
+                    <td>{{ d.start_datetime }}</td>
+                    <td>{{ d.finish_datetime }}</td>
+                    <td><a href="/admin/management_logging/logging/?name={{ d.name }}">click here</a></td>
+                </tr>
+        {% endfor %}
+    </table>
+
+{% endblock %}
