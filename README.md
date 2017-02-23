@@ -64,7 +64,13 @@ The report will show you the status of the latest run of each management command
 Changelog
 =========
 
-Version 0.1
+
+Version 1.0.0
 -------------
+
+* Need to implement a flush method
+
+Version 1.0
+-----------
 
 * Initial setup

@@ -28,6 +28,9 @@ class OutputWrapperWithLoggingCapture(object):
         setattr(sys, stream, self)
         self.stream = stream
 
+    def flush(self):
+        pass
+
 
 class CommandwithLogging(BaseCommand):
     help = 'Run all hands off automated tests and log results'
