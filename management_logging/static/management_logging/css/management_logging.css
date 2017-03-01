@@ -16,6 +16,7 @@
     border-radius: 3px;
 }
 
+.field-stderr_output .management-output,
 .stderr_output .management-output {
     background-color: lightgoldenrodyellow;
     width: auto!important;

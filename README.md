@@ -64,8 +64,12 @@ The report will show you the status of the latest run of each management command
 Changelog
 =========
 
+Version 1.0.2
+-------------
 
-Version 1.0.0
+* For the assets get the STATIC_URL
+
+Version 1.0.1
 -------------
 
 * Need to implement a flush method

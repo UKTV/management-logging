@@ -3,7 +3,7 @@ from setuptools import setup
 
 setup(
     name='management_logging',
-    version='1.0.1',
+    version='1.0.2',
     author='Ryan Stalbow',
     author_email='ryan.stalbow@uktv.co.uk',
     packages=['management_logging'],
