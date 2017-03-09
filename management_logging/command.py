@@ -47,7 +47,7 @@ class CommandwithLogging(BaseCommand):
         super(CommandwithLogging, self).__init__(stdout=stdout, stderr=stderr, no_color=False)
 
     def execute(self, *args, **options):
-        super(CommandwithLogging, self).execute()
+        super(CommandwithLogging, self).execute(*args, **options)
         self.logging.finish_datetime = timezone.now()
         self.logging.status = 'Finished'
         self.logging.save()
