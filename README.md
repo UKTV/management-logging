@@ -64,6 +64,11 @@ The report will show you the status of the latest run of each management command
 Changelog
 =========
 
+Version 1.0.3
+-------------
+
+* Close all connections after its run to prevent MySQL server has gone away error
+
 Version 1.0.2
 -------------
 
