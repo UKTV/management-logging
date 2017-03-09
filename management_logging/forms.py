@@ -8,7 +8,10 @@ class OutputWidget(forms.Textarea):
     def render(self, name, value, attrs=None):
         if value is None:
             value = ''
-        return format_html('<pre><div class="grp-readonly management-output">{}</div></pre>'.format(value))
+        try:
+            return format_html('<pre><div class="grp-readonly management-output">{}</div></pre>'.format(value))
+        except:
+            return '<pre><div class="grp-readonly management-output">{}</div></pre>'.format(value)
 
 
 class LoggingForm(forms.ModelForm):

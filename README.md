@@ -64,6 +64,11 @@ The report will show you the status of the latest run of each management command
 Changelog
 =========
 
+Version 1.0.4
+-------------
+
+* The output in the render isnt always HTML so added a try except
+
 Version 1.0.3
 -------------
 
