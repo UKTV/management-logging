@@ -68,6 +68,7 @@ Version 1.0.4
 -------------
 
 * The output in the render isnt always HTML so added a try except
+* Added in CSS to wrap text in the admin
 
 Version 1.0.3
 -------------
