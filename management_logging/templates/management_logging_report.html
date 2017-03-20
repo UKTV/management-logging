@@ -17,9 +17,9 @@
                     <td>{{ d.name }}</td>
                     <td>
                     {% if d.status == 'Error' %}
-                        <img src="{{ STATIC_URL }}admin/img/icon_error.gif" alt="True">
+                        <img src="{{ STATIC_URL }}management_logging/img/icon_error.gif" alt="True">
                     {% elif d.status == 'Finished' %}
-                        <img src="{{ STATIC_URL }}img/icon_success.gif" alt="True">
+                        <img src="{{ STATIC_URL }}management_logging/img/icon_success.gif" alt="True">
                     {% endif %}
                     </td>
                     <td>{{ d.start_datetime }}</td>
