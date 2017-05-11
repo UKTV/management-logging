@@ -19,7 +19,7 @@ class OutputWrapperWithLoggingCapture(object):
             self.logging.save()
         if self.stream == 'stderr':
             self.logging.stderr_output = self.logging.stderr_output + msg
-            self.logging.status = 'Error'
+            self.logging.status == 'Error'
             self.logging.finish_datetime = timezone.now()
             self.logging.save()
 
