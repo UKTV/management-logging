@@ -49,5 +49,8 @@ class CommandwithLogging(BaseCommand):
     def execute(self, *args, **options):
         super(CommandwithLogging, self).execute(*args, **options)
         self.logging.finish_datetime = timezone.now()
-        self.logging.status = 'Finished'
+        if self.logging.status = 'Error':
+            self.logging.status = 'Warning'
+        else:
+            self.logging.status = 'Finished'
         self.logging.save()

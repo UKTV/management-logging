@@ -24,6 +24,8 @@ class LoggingAdmin(admin.ModelAdmin):
             value = '<img src="{}management_logging/img/icon_success.gif" alt="True">'.format(static_url)
         elif status == 'Progress':
             value = '<img src="{}management_logging/img/icon_progress.gif" alt="True">'.format(static_url)
+        elif status == 'Warning':
+            value = '<img src="{}management_logging/img/icon_warning.gif" alt="True">'.format(static_url)
         return format_html(value)
     status_icon.short_description = 'Status'
 
