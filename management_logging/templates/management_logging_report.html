@@ -18,6 +18,8 @@
                     <td>
                     {% if d.status == 'Error' %}
                         <img src="{{ STATIC_URL }}management_logging/img/icon_error.gif" alt="True">
+                    {% if d.status == 'Warning' %}
+                        <img src="{{ STATIC_URL }}management_logging/img/icon_warning.gif" alt="True">
                     {% elif d.status == 'Finished' %}
                         <img src="{{ STATIC_URL }}management_logging/img/icon_success.gif" alt="True">
                     {% endif %}
