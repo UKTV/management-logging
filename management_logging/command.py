@@ -19,7 +19,7 @@ class OutputWrapperWithLoggingCapture(object):
             self.logging.save()
         if self.stream == 'stderr':
             self.logging.stderr_output = self.logging.stderr_output + msg
-            self.logging.status == 'Error'
+            self.logging.status = 'Error'
             self.logging.finish_datetime = timezone.now()
             self.logging.save()
 
@@ -49,7 +49,7 @@ class CommandwithLogging(BaseCommand):
     def execute(self, *args, **options):
         super(CommandwithLogging, self).execute(*args, **options)
         self.logging.finish_datetime = timezone.now()
-        if self.logging.status = 'Error':
+        if self.logging.status == 'Error':
             self.logging.status = 'Warning'
         else:
             self.logging.status = 'Finished'
