@@ -3,6 +3,16 @@
 {% block content %}
     <h1>Daily Jobs Report </h1>
 
+    <form class="xml-report-form" action="/management_logging/" method="get" name="management_logging">
+        <label for="site">Site:</label>
+        <select name="site">
+            {% for site in sites %}
+                <option value="{{ site }}" {% if site == selected_site %}selected{% endif %}>{{ site }}</option>
+            {% endfor %}
+        </select>
+        <input class="filter-btn" type="submit" value="Filter">
+    </form>
+
     <table>
         <thead>
             <th>Name</th>
