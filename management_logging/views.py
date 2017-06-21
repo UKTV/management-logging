@@ -39,8 +39,10 @@ class ManagementLoggingReport(TemplateView):
                     class_name=job
                 )
 
-                if selected_site != 'None':
+                if selected_site and selected_site != 'None':
                     logs = logs.filter(site=selected_site)
+                else:
+                    logs = logs.filter(site__isnull=True)
 
                 log = logs.order_by('-start_datetime')[0]
             except IndexError:
