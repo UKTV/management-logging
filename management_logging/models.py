@@ -13,6 +13,7 @@ class Logging(models.Model):
     status = models.CharField(max_length=10)
     start_datetime = models.DateTimeField(auto_now_add=True)
     finish_datetime = models.DateTimeField(blank=True, null=True)
+    site = models.CharField(blank=True, null=True, max_length=100)
 
     def __unicode__(self):
         return self.name
