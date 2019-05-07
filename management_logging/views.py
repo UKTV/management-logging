@@ -28,7 +28,7 @@ class ManagementLoggingReport(TemplateView):
 
         jobs_names = []
         cur1 = connection.cursor()
-        cur1.execute("select distinct class_name from management_logging_logging order by name")
+        cur1.execute("select distinct class_name, name from management_logging_logging order by name")
         rows = cur1.fetchall()
         for row in rows:
             jobs_names.append(row[0])
