@@ -5,12 +5,12 @@ from .models import Logging
 
 
 class OutputWidget(forms.Textarea):
-    def render(self, name, value, attrs=None):
+    def render(self, name, value, attrs=None, renderer=None):
         if value is None:
             value = ''
         try:
             return format_html('<pre><div class="grp-readonly management-output">{}</div></pre>'.format(value))
-        except:
+        except Exception:
             return '<pre><div class="grp-readonly management-output">{}</div></pre>'.format(value)
 
 
