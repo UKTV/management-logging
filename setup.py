@@ -14,7 +14,7 @@ setup(
     zip_safe=False,
     include_package_data=True,
     package_data={'': ['README.rst']},
-    install_requires=['aws-xray-sdk']
+    install_requires=['aws-xray-sdk',]
     classifiers=[
         'Development Status :: 4 - Beta',
         'Environment :: Console',
