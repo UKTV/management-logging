@@ -1,5 +1,8 @@
 import sys
 
+from aws_xray_sdk.core import xray_recorder
+from aws_xray_sdk.core import patch_all
+
 from django.core.management.base import BaseCommand, OutputWrapper
 from django.utils import timezone
 
@@ -44,9 +47,14 @@ class CommandwithLogging(BaseCommand):
         )
         stdout = OutputWrapper(stdout or OutputWrapperWithLoggingCapture('stdout', self.logging))
         stderr = OutputWrapper(stderr or OutputWrapperWithLoggingCapture('stderr', self.logging))
+
         super(CommandwithLogging, self).__init__(stdout=stdout, stderr=stderr, no_color=False)
 
     def execute(self, *args, **options):
+        xray_recorder.configure(context_missing='LOG_ERROR')
+        patch_all()
+        xray_recorder.begin_segment("CRON")
+
         super(CommandwithLogging, self).execute(*args, **options)
         self.logging.finish_datetime = timezone.now()
         if self.logging.status == 'Error':
@@ -54,3 +62,5 @@ class CommandwithLogging(BaseCommand):
         else:
             self.logging.status = 'Finished'
         self.logging.save()
+
+        xray_recorder.end_segment()
