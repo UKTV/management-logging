@@ -2,6 +2,7 @@ import sys
 
 from aws_xray_sdk.core import xray_recorder
 from aws_xray_sdk.core import patch_all
+from aws_xray_sdk.core.sampling.local.sampler import LocalSampler
 
 from django.core.management.base import BaseCommand, OutputWrapper
 from django.utils import timezone
@@ -51,7 +52,19 @@ class CommandwithLogging(BaseCommand):
         super(CommandwithLogging, self).__init__(stdout=stdout, stderr=stderr, no_color=False)
 
     def execute(self, *args, **options):
-        xray_recorder.configure(context_missing='LOG_ERROR')
+        xray_rules = {
+            "version": 2,
+            "default": {
+                "fixed_target": 1,
+                "rate": 1.0
+            }
+        }
+        xray_recorder.configure(
+            context_missing='LOG_ERROR', 
+            plugins = ('ECSPlugin',),
+            sampling_rules=xray_rules,
+            sampler=LocalSampler()
+        )
         patch_all()
         xray_recorder.begin_segment("CRON")
 
