@@ -1,4 +1,5 @@
 import sys
+import uuid
 
 import sentry_sdk
 from aws_xray_sdk.core.exceptions.exceptions import SegmentNotFoundException
@@ -45,20 +46,6 @@ class CommandwithLogging(BaseCommand):
 
 
     def __init__(self, stdout=None, stderr=None, no_color=False):
-        xray_rules = {
-            "version": 2,
-            "default": {
-                "fixed_target": 1,
-                "rate": 1.0
-            }
-        }
-        xray_recorder.configure(
-            context_missing='LOG_ERROR', 
-            plugins = ('ECSPlugin',),
-            sampling_rules=xray_rules,
-            sampler=LocalSampler()
-        )
-        patch_all()
         # Create the logging
         self.logging = Logging.objects.create(
             name=self.name,
@@ -85,9 +72,11 @@ class CommandwithLogging(BaseCommand):
         except SegmentNotFoundException as e:
             # Send stacktrace to Sentry
             sentry_sdk.capture_exception(e)
+            xray_recorder.end_segment()
             raise
         except Exception as e:
             sentry_sdk.capture_exception(e)
+            xray_recorder.end_segment()
             raise
         finally:
             sentry_sdk.flush()
