@@ -1,4 +1,7 @@
 import sys
+import uuid
+
+import sentry_sdk
 
 from django.core.management.base import BaseCommand, OutputWrapper
 from django.utils import timezone
@@ -36,7 +39,9 @@ class CommandwithLogging(BaseCommand):
     help = 'Run all hands off automated tests and log results'
     name = 'Management command test'
 
+
     def __init__(self, stdout=None, stderr=None, no_color=False):
+        # Create the logging
         self.logging = Logging.objects.create(
             name=self.name,
             class_name=self.__class__,
@@ -44,13 +49,22 @@ class CommandwithLogging(BaseCommand):
         )
         stdout = OutputWrapper(stdout or OutputWrapperWithLoggingCapture('stdout', self.logging))
         stderr = OutputWrapper(stderr or OutputWrapperWithLoggingCapture('stderr', self.logging))
-        super(CommandwithLogging, self).__init__(stdout=stdout, stderr=stderr, no_color=False)
+        super().__init__(stdout=stdout, stderr=stderr, no_color=False)
+
 
     def execute(self, *args, **options):
-        super(CommandwithLogging, self).execute(*args, **options)
-        self.logging.finish_datetime = timezone.now()
-        if self.logging.status == 'Error':
-            self.logging.status = 'Warning'
-        else:
-            self.logging.status = 'Finished'
-        self.logging.save()
+        try:
+            # Run the 'handle' method
+            super(CommandwithLogging, self).execute(*args, **options)
+            # Log the outcome
+            self.logging.finish_datetime = timezone.now()
+            if self.logging.status == 'Error':
+                self.logging.status = 'Warning'
+            else:
+                self.logging.status = 'Finished'
+            self.logging.save()
+        except Exception as e:
+            sentry_sdk.capture_exception(e)
+            raise
+        finally:
+            sentry_sdk.flush()
