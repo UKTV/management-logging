@@ -2,11 +2,6 @@ import sys
 import uuid
 
 import sentry_sdk
-from aws_xray_sdk.core.exceptions.exceptions import SegmentNotFoundException
-
-from aws_xray_sdk.core import xray_recorder
-from aws_xray_sdk.core import patch_all
-from aws_xray_sdk.core.sampling.local.sampler import LocalSampler
 
 from django.core.management.base import BaseCommand, OutputWrapper
 from django.utils import timezone
@@ -59,24 +54,17 @@ class CommandwithLogging(BaseCommand):
 
     def execute(self, *args, **options):
         try:
-            with xray_recorder.in_segment(str(self.__class__.__mro__)):
-                # Run the 'handle' method
-                super(CommandwithLogging, self).execute(*args, **options)
-                # Log the outcome
-                self.logging.finish_datetime = timezone.now()
-                if self.logging.status == 'Error':
-                    self.logging.status = 'Warning'
-                else:
-                    self.logging.status = 'Finished'
-                self.logging.save()
-        except SegmentNotFoundException as e:
-            # Send stacktrace to Sentry
-            sentry_sdk.capture_exception(e)
-            xray_recorder.end_segment()
-            raise
+            # Run the 'handle' method
+            super(CommandwithLogging, self).execute(*args, **options)
+            # Log the outcome
+            self.logging.finish_datetime = timezone.now()
+            if self.logging.status == 'Error':
+                self.logging.status = 'Warning'
+            else:
+                self.logging.status = 'Finished'
+            self.logging.save()
         except Exception as e:
             sentry_sdk.capture_exception(e)
-            xray_recorder.end_segment()
             raise
         finally:
             sentry_sdk.flush()
